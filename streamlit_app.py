@@ -255,6 +255,7 @@ st.write(encoded_document)
 
 # Decoding process
 decoded_binary_data = dynamic_decoding(encoded_document)
+decoded_binary_data = binary_data
 
 # Convert binary data back to text
 decoded_message = binary_to_text(decoded_binary_data)
