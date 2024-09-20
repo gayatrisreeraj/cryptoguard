@@ -240,30 +240,30 @@ This application allows you to encode and decode a document using semantic, synt
 uploaded_document = st.file_uploader("Upload document.txt", type=["txt"])
 uploaded_secret = st.file_uploader("Upload secret.txt", type=["txt"])
 
-if uploaded_document and uploaded_secret:
-    # Read files
-    document_text = read_file(uploaded_document)
-    secret_message = read_file(uploaded_secret)
+# Read files from Streamlit file uploader
+document_text = uploaded_document.read().decode('utf-8')
+secret_message = uploaded_secret.read().decode('utf-8')
 
-    # Convert secret message to binary
-    binary_data = text_to_binary(secret_message)
+# Convert secret message to binary
+binary_data = text_to_binary(secret_message)
 
-    # Dynamic encoding process
-    encoded_document = dynamic_encoding(document_text, binary_data)
+# Dynamic encoding process
+encoded_document = dynamic_encoding(document_text, binary_data)
 
-    st.subheader("Encoded Document")
-    st.write(encoded_document)
+st.subheader("Encoded Document")
+st.write(encoded_document)
 
-    # Decoding process
-    #decoded_binary_data = dynamic_decoding(encoded_document)
-    decoded_binary_data = binary_data
-    decoded_message = binary_to_text(decoded_binary_data)
+# Decoding process
+decoded_binary_data = dynamic_decoding(encoded_document)
 
-    st.subheader("Decoded Message")
-    st.write(decoded_message)
+# Convert binary data back to text
+decoded_message = binary_to_text(decoded_binary_data)
 
-    # Save the encoded document if needed
-    with open("encoded_document.txt", "w") as f:
-        f.write(encoded_document)
-    
-    st.success("Encoding completed. Encoded document saved as 'encoded_document.txt'.")
+st.subheader("Decoded Message")
+st.write(decoded_message)
+
+# Save the encoded document if needed
+with open("encoded_document.txt", "w") as f:
+    f.write(encoded_document)
+
+st.success("Encoding completed. Encoded document saved as 'encoded_document.txt'.")
